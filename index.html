@@ -1,95 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentines Day</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .gradient-background {
-      background: rgb(255, 208, 229);
-      background: linear-gradient(180deg, rgba(255, 208, 229, 1) 0%, rgba(255, 232, 242, 1) 36%, rgba(255, 255, 255, 1) 100%);
-    }
-
-    .bounce2 {
-      animation: bounce2 2s ease infinite;
-    }
-
-    @keyframes bounce2 {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(-20px);
-      }
-      60% {
-        transform: translateY(-10px);
-      }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For {{RECIPIENT_NAME}} 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="gradient-background">
-  <div class="flex items-center justify-center h-screen">
-    <div class="flex flex-col items-center p-4">
-      <img id="imageDisplay" src="./images/image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
-      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine?</h2>
-      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
-        <button id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
-          Yes
-        </button>
-        <button id="noButton"
-          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
-          No
-        </button>
-      </div>
-    </div>
-  </div>
 
-  <script type="module">
-    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
-    const yesButton = document.getElementById('yesButton');
-    const noButton = document.getElementById('noButton');
-    const imageDisplay = document.getElementById('imageDisplay');
-    const valentineQuestion = document.getElementById('valentineQuestion');
-    const responseButtons = document.getElementById('responseButtons');
-  
-    let noClickCount = 0;
-    let buttonHeight = 48; // Starting height in pixels
-    let buttonWidth = 80;
-    let fontSize = 20; // Starting font size in pixels
-    const imagePaths = [
-      "./images/image1.gif",
-      "./images/image2.gif",
-      "./images/image3.gif",
-      "./images/image4.gif",
-      "./images/image5.gif",
-      "./images/image6.gif",
-      "./images/image7.gif"
-    ];
-  
-    noButton.addEventListener('click', function() {
-      if (noClickCount < 5) {
-        noClickCount++;
-        imageDisplay.src = imagePaths[noClickCount];
-        buttonHeight += 35; // Increase height by 5px on each click
-        buttonWidth += 35;
-        fontSize += 25; // Increase font size by 1px on each click
-        yesButton.style.height = `${buttonHeight}px`; // Update button height
-        yesButton.style.width = `${buttonWidth}px`;
-        yesButton.style.fontSize = `${fontSize}px`; // Update font size
-        if (noClickCount < 6) {
-          noButton.textContent = ["No", "Are you sure?", "Pookie please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
-        }
-      }
-    });
-  
-    yesButton.addEventListener('click', () => {
-      imageDisplay.src = './images/image7.gif'; // Change to image7.gif
-      valentineQuestion.textContent = "Yayyy!! :3"; // Change the question text
-      responseButtons.style.display = 'none'; // Hide both buttons
-      confetti(); // Trigger confetti animation
-    });
-  </script>  
+<body>
+  <main class="wrap">
+    <header class="card hero reveal-on-scroll">
+      <div class="badge">Valentine’s Note</div>
+      <h1>Hi, <span class="accent">{{RECIPIENT_NAME}}</span>.</h1>
+      <p class="lead">I made this little page because some things deserve more than a text.</p>
+      <div class="cta-row">
+        <a class="btn" href="#letter">Read the letter</a>
+        <button class="btn ghost" id="sparkBtn" type="button">Add spark</button>
+      </div>
+      <p class="tiny">From <strong>{{YOUR_NAME}}</strong></p>
+    </header>
+
+    <section id="letter" class="card reveal-on-scroll">
+      <h2>My letter to you</h2>
+      <p>Dear <strong>{{RECIPIENT_NAME}}</strong>,</p>
+      <p>{{LINE_1}}</p>
+      <p>{{LINE_2}}</p>
+      <p>{{LINE_3}}</p>
+      <p class="sig">Always,<br /><span class="accent">{{YOUR_NAME}}</span></p>
+    </section>
+
+    <section class="card reveal-on-scroll">
+      <h2>A few tiny things I adore</h2>
+      <ul class="chips">
+        <li>your smile</li>
+        <li>your voice</li>
+        <li>how you care</li>
+        <li>your courage</li>
+        <li>your heart</li>
+      </ul>
+      <p class="tiny">(Edit these to match your person.)</p>
+    </section>
+
+    <section class="card reveal-on-scroll">
+      <h2>One last thing…</h2>
+      <p class="muted">There’s a hidden message here. Tap the button when you’re ready.</p>
+
+      <button class="btn big" id="revealBtn" type="button">Tap to reveal 💌</button>
+
+      <div class="reveal-box" id="revealBox" aria-hidden="true">
+        <h3>Will you be my Valentine, {{RECIPIENT_NAME}}?</h3>
+        <p class="muted">{{FINAL_MESSAGE}}</p>
+        <div class="yesno">
+          <button class="btn" id="yesBtn" type="button">Yes</button>
+          <button class="btn ghost" id="noBtn" type="button">No (try me)</button>
+        </div>
+        <p class="tiny" id="responseLine"></p>
+      </div>
+
+      <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+    </section>
+
+    <footer class="footer tiny">Made with love by {{YOUR_NAME}} • <span id="year"></span></footer>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
